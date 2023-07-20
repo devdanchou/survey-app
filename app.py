@@ -31,13 +31,31 @@ def to_question_0():
     return redirect('/questions/0')
 
 
-@app.get('/questions/<int:qnum>')
-def to_question(qnum):
+@app.get('/questions/<int:qidx>')
+def to_question(qidx):
     """Go to question with a certain number """
 
-    question = survey.questions[qnum]
+    question = survey.questions[qidx]
     return render_template('question.html', question=question)
 
 # post request to /answer
 #     hand over the answer from the user to the responses list
 #     redirect to the next question
+
+@app.post('/answer')
+def add_response():
+
+    response = request.form["answer"]
+    responses.append(response)
+    next_question = len(responses)
+    next_question_index = len(responses)
+
+    if next_question_index >= len(survey.questions)
+        return redirect('/completion')
+
+    return redirect(f'/questions/{next_question}')
+
+
+@app.get('/completion')
+def to_completion():
+
