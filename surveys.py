@@ -61,3 +61,5 @@ surveys = {
     "satisfaction": satisfaction_survey,
     "personality": personality_quiz,
 }
+
+print(satisfaction_survey)
