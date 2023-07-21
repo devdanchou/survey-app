@@ -3,10 +3,12 @@
 {% block content %}
 
 <h1>Thanks for completing this survey!</h1>
+<ul>
+  {% for i in range(0, len) %}
 
-{% for i in responses %}
+  <li><b>{{ questions[i].prompt}}</b> {{responses[i] }}</li>
+  {% endfor %}
+</ul>
 
-<P>{{ i }}</P>
-{% endfor %}
 
 {% endblock %}

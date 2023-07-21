@@ -11,8 +11,6 @@ debug = DebugToolbarExtension(app)
 
 responses = []
 
-question_to_response = {}
-
 
 @app.get("/")
 def to_home():
@@ -20,8 +18,11 @@ def to_home():
     title = survey.title
     instructions = survey.instructions
 
-    return render_template("survey_start.html", title=title,
-                           instructions=instructions)
+    return render_template(
+        "survey_start.html",
+        title=title,
+        instructions=instructions
+    )
 
 
 @app.post('/begin')
@@ -35,14 +36,11 @@ def to_question_0():
 
 @app.get('/questions/<int:qidx>')
 def to_question(qidx):
+    # display or show question for func name
     """Go to question with index qidx """
 
     question = survey.questions[qidx]
     return render_template('question.html', question=question)
-
-# post request to /answer
-#     hand over the answer from the user to the responses list
-#     redirect to the next question
 
 
 @app.post('/<int:qidx>/answer')
@@ -64,9 +62,6 @@ def add_response(qidx):
 @app.get('/completion')
 def to_completion():
     """Go to the thank you page and display the questions and answers"""
-    # survey.questions
-    # responses
 
-    # for
-
-    return render_template('completion.html', responses=responses)
+    return render_template('completion.html', responses=responses,
+                           len = len(responses), questions = survey.questions)
