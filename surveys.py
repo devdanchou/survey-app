@@ -1,5 +1,6 @@
 class Question:
     """Question on a questionnaire."""
+    index = 0
 
     def __init__(self, prompt, choices=('Yes', 'No'), allow_text=False):
         """Create question (assume Yes/No for choices).
@@ -8,10 +9,11 @@ class Question:
         choices = iterable, like ["Yes", "No", "Maybe"]
         allow_text = T/F to control free-form textual explanation
         """
-
         self.prompt = prompt
         self.choices = choices
         self.allow_text = allow_text
+        self.id = Question.index
+        Question.index += 1
 
 
 class Survey:

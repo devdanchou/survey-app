@@ -3,8 +3,8 @@
 
 <h1>{{ question.prompt }}</h1>
 
-<form action="/answer" method="POST">
-  <!-- <input type="radio" id="html" name="fav_language" value="HTML"> -->
+<form action="/{{question.id}}/answer" method="POST">
+
   <!-- you should have one item like this for every choice -->
   {% for choice in question.choices %}
   <p>

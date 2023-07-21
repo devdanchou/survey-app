@@ -11,6 +11,8 @@ debug = DebugToolbarExtension(app)
 
 responses = []
 
+question_to_response = {}
+
 
 @app.get("/")
 def to_home():
@@ -33,7 +35,7 @@ def to_question_0():
 
 @app.get('/questions/<int:qidx>')
 def to_question(qidx):
-    """Go to question with a certain number """
+    """Go to question with index qidx """
 
     question = survey.questions[qidx]
     return render_template('question.html', question=question)
@@ -42,20 +44,29 @@ def to_question(qidx):
 #     hand over the answer from the user to the responses list
 #     redirect to the next question
 
-@app.post('/answer')
-def add_response():
 
-    response = request.form["answer"]
-    responses.append(response)
-    next_question = len(responses)
-    next_question_index = len(responses)
+@app.post('/<int:qidx>/answer')
+def add_response(qidx):
+    """Get the answer from a question than go to the next question,
+       if all questions are answered, go to thank you page.
+    """
+    current_answer = request.form["answer"]
+    responses.append(current_answer)
 
-    if next_question_index >= len(survey.questions)
+    next_question_index = qidx+1
+
+    if next_question_index >= len(survey.questions):
         return redirect('/completion')
 
-    return redirect(f'/questions/{next_question}')
+    return redirect(f'/questions/{next_question_index}')
 
 
 @app.get('/completion')
 def to_completion():
+    """Go to the thank you page and display the questions and answers"""
+    # survey.questions
+    # responses
 
+    # for
+
+    return render_template('completion.html', responses=responses)
